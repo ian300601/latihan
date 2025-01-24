@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: Constantia;
+  display: flex;
+  justify-content: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+input[type=text], input[type=number], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #dab5b5;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+input[type=submit] {
+  background-color: #8571f7;
+  color: rgb(10, 9, 9);
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #eeebeb;
+  padding: 20px;
+  width: 48%;
+  margin: 5px;
+}
+
+h3, h4 {
+  margin: 10px 0;
+}
+
+.flex-container {
+  display: flex;
+  width: 100%;
+}
+</style>
+<script>
+  function convertToDecimal(element) {
+    let value = parseFloat(element.value);
+    if (!isNaN(value)) {
+      element.value = (value / 100).toFixed(4); // Mengubah persen menjadi desimal
+    }
+  }
+</script>
+</head>
+<body>
+<div class="flex-container">
+  <!-- Form Input -->
+  <div class="container">
+    <h3>PREDIKSI HASIL PANEN KAKAO DESA MINANGA</h3>
+    <form action="{{ url_for('result') }}" method="post">
+      <table>
+        <tr>
+          <td><label for="Luas Lahan"><h4>Luas Lahan</h4></label></td>
+          <td><input type="number" name="Luas Lahan" step="any" required></td>
+        </tr>
+        <tr>
+          <td><label for="Jumlah Tanaman Kakao"><h4>Jumlah Tanaman Kakao</h4></label></td>
+          <td><input type="number" name="Jumlah Tanaman Kakao" step="any" required></td>
+        </tr>
+        <tr>
+          <td><label for="Jenis Bibit"><h4>Jenis Bibit</h4></label></td>
+          <td>
+            <select id="Jenis Bibit" name="Jenis Bibit" required>
+              <option value="">Pilih Jenis Bibit</option>
+              <option value="0">Forastero Dan Trinatrio</option>
+              <option value="1">Forastero</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td><label for="Jenis Pupuk"><h4>Jenis Pupuk</h4></label></td>
+          <td>
+            <select id="Jenis Pupuk" name="Jenis Pupuk" required>
+              <option value="">Pilih Jenis Pupuk</option>
+              <option value="0">Green Tama Dan Sampurna B</option>
+              <option value="1">Npk Dan Sampurna B</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td><label for="Hama & Penyakit"><h4>Hama & Penyakit (%)</h4></label></td>
+          <td><input type="text" name="Hama & Penyakit" onblur="convertToDecimal(this)" required></td>
+        </tr>
+        <tr>
+          <td><label for="Penanggulangan Hama & Penyakit"><h4>Penanggulangan Hama & Penyakit</h4></label></td>
+          <td>
+            <select id="Penanggulangan Hama & Penyakit" name="Penanggulangan_Hama_Penyakit" required>
+              <option value="">Pilih Jenis Pestisida</option>
+              <option value="0">Pestisida Dan Pemangkasan</option>
+              <option value="1">Pestisida</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td><label for="Tingkat Curah Hujan"><h4>Tingkat Curah Hujan</h4></label></td>
+          <td>
+            <select id="Tingkat Curah Hujan" name="Tingkat Curah Hujan" required>
+              <option value="">Curah Hujan</option>
+              <option value="0">Rendah</option>
+              <option value="1">Tinggi</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td><label for="Tenaga Kerja"><h4>Tenaga Kerja</h4></label></td>
+          <td><input type="number" name="Tenaga Kerja" step="any" required></td>
+        </tr>
+      </table>
+      <input type="submit" value="PREDIKSI">
+    </form>
+  </div>
+
+  <!-- Output Hasil -->
+  <div class="container">    
+    <h4>Berikut adalah hasil prediksi berdasarkan perhitungan dari kriteria yang telah diinput :</h4>
+    <h4>{{ result_text }}</h4>
+    <br><br><br><br><br><br>
+  </div>
+</div>
+</body>
+</html>
